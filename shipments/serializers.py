@@ -63,7 +63,7 @@ class ShipmentCreateSerializer(serializers.ModelSerializer):
             if not box.order:
                 raise ValidationError(f'Box id = {box.id}. You cannot add a box without the given "order".')
         for box in value:
-            if (box.order.recipient_company.id != self.context['request'].user.company.id
+            if (box.order.company.id != self.context['request'].user.company.id
                     and not self.context['request'].user.company.is_transport_company):
                 raise ValidationError(f'Box with id = {box.id}. '
                                       f'Only those boxes can be added that belong to the company '
@@ -118,7 +118,7 @@ class ShipmentUpdateSerializer(serializers.ModelSerializer):
             if not box.order:
                 raise ValidationError(f'Box id = {box.id}. You cannot add a box without the given "order".')
         for box in value:
-            if (box.order.recipient_company.id != self.context['request'].user.company.id
+            if (box.order.company.id != self.context['request'].user.company.id
                     and not self.context['request'].user.company.is_transport_company):
                 raise ValidationError(f'Box with id = {box.id}. '
                                       f'Only those boxes can be added that belong to the company '

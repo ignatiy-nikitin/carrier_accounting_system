@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.db import models
-from rest_framework.exceptions import ValidationError
 
 from companies.models import Company
 
@@ -27,7 +26,8 @@ class Order(models.Model):
     client_tracking = models.CharField(max_length=64,
                                        verbose_name='Номер заявки в системе отправителя',
                                        help_text='Уникальный для каждого заказа')
-    client_name = models.CharField(max_length=264, blank=True, verbose_name='Грузоотправитель', help_text='Название организации')
+    client_name = models.CharField(max_length=264, blank=True, verbose_name='Грузоотправитель',
+                                   help_text='Название организации')
     shipping_date = models.DateField(null=True, verbose_name='Ожидаемая дата подачи транспорта')
     shipping_time = models.TimeField(null=True, verbose_name='Ожидаемое время подачи транспорта')
     shipping_from = models.TextField(blank=True, verbose_name='Адрес загрузки транспорта')
@@ -40,8 +40,8 @@ class Order(models.Model):
     cargo_qty = models.IntegerField(null=True, verbose_name='Груз: кол-во мест')
     cargo_weight = models.FloatField(null=True, verbose_name='Груз: масса', help_text='кг')
     cargo_price = models.CharField(max_length=128, blank=True, verbose_name='Стоимость груза', help_text='руб.')
-    recipient_company = models.ForeignKey(Company, on_delete=models.SET_NULL, null=True, related_name='orders',
-                                          verbose_name='Получатель в базе клиента')  # TODO: переделать
+    recipient_id = models.CharField(max_length=128, blank=True,
+                                    verbose_name='Идентификатор в базе клиента')
     recipient_zip = models.CharField(max_length=128, blank=True, verbose_name='Адрес получателя: почтовый индекс')
     recipient_city = models.CharField(max_length=128, blank=True, verbose_name='Адрес получателя: город')
     recipient_email = models.EmailField(blank=True, verbose_name='Адрес получателя: электронная почта')
@@ -50,7 +50,8 @@ class Order(models.Model):
     recipient_address_comment = models.TextField(blank=True, verbose_name='Адрес получателя: комментарий')
     recipient_phone = models.TextField(blank=True, verbose_name='Телефон получателя')
     recipient_name = models.CharField(blank=True, max_length=264, verbose_name='ФИО получателя')
-    recipient_name2 = models.CharField(blank=True, max_length=264, verbose_name='ФИО получателя. Альтернативный получатель')
+    recipient_name2 = models.CharField(blank=True, max_length=264,
+                                       verbose_name='ФИО получателя. Альтернативный получатель')
     update = models.DateTimeField(auto_now_add=True, verbose_name='Дата последнего изменения заказа')
     comments = models.TextField(blank=True, verbose_name='Комментарии к заказу')
 
