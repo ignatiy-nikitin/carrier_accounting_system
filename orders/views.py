@@ -1,6 +1,4 @@
-from django.utils.decorators import method_decorator
-from drf_yasg.utils import swagger_auto_schema
-from rest_framework import mixins, viewsets
+from rest_framework import viewsets
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 
@@ -10,11 +8,7 @@ from orders.serializers import OrderListRetrieveSerializer, OrderCreateSerialize
 from users.permissions import IsUserNotBlocked
 
 
-# @method_decorator(name='list', decorator=swagger_auto_schema(
-#     responses={201: OrderCreateSerializer},
-# ))
 class OrderViewSet(viewsets.ModelViewSet):
-    # queryset = Order.objects.all()
     pagination_class = OrderPagination
     permission_classes = [IsAuthenticated, IsUserNotBlocked]
 

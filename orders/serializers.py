@@ -13,7 +13,6 @@ from users.serializers import UserListRetrieveSerializer
 class OrderListRetrieveSerializer(serializers.ModelSerializer):
     user = UserListRetrieveSerializer()
     company = CompanySerializer()
-    recipient_company = CompanySerializer()
 
     class Meta:
         model = Order
@@ -23,7 +22,7 @@ class OrderListRetrieveSerializer(serializers.ModelSerializer):
             'shipping_date', 'shipping_time', 'shipping_from',
             'shipping_car_type', 'shipping_method', 'recipient_order_num',
             'cargo_description', 'cargo_pallet', 'cargo_qty',
-            'cargo_weight', 'cargo_price', 'recipient_company',
+            'cargo_weight', 'cargo_price', 'recipient_id',
             'recipient_zip', 'recipient_city', 'recipient_email',
             'recipient_area', 'recipient_address', 'recipient_address_comment',
             'recipient_phone', 'recipient_name', 'recipient_name2',
@@ -39,9 +38,6 @@ class OrderListRetrieveSerializer(serializers.ModelSerializer):
 class OrderCreateSerializer(serializers.ModelSerializer):
     user = UserListRetrieveSerializer(read_only=True)
     company = CompanySerializer(read_only=True)
-    recipient_company = CompanySerializer(read_only=True)
-    recipient_company_id = serializers.PrimaryKeyRelatedField(source='recipient_company',
-                                                              queryset=Company.objects.all(), write_only=True)
 
     class Meta:
         model = Order
@@ -51,7 +47,7 @@ class OrderCreateSerializer(serializers.ModelSerializer):
             'shipping_date', 'shipping_time', 'shipping_from',
             'shipping_car_type', 'shipping_method', 'recipient_order_num',
             'cargo_description', 'cargo_pallet', 'cargo_qty',
-            'cargo_weight', 'cargo_price', 'recipient_company', 'recipient_company_id',
+            'cargo_weight', 'cargo_price', 'recipient_id',
             'recipient_zip', 'recipient_city', 'recipient_email',
             'recipient_area', 'recipient_address', 'recipient_address_comment',
             'recipient_phone', 'recipient_name', 'recipient_name2',
@@ -90,7 +86,6 @@ class OrderCreateSerializer(serializers.ModelSerializer):
 class OrderUpdateSerializer(serializers.ModelSerializer):
     user = UserListRetrieveSerializer(read_only=True)
     company = CompanySerializer(read_only=True)
-    recipient_company = CompanySerializer(required=False)
 
     class Meta:
         model = Order
@@ -100,7 +95,7 @@ class OrderUpdateSerializer(serializers.ModelSerializer):
             'shipping_date', 'shipping_time', 'shipping_from',
             'shipping_car_type', 'shipping_method', 'recipient_order_num',
             'cargo_description', 'cargo_pallet', 'cargo_qty',
-            'cargo_weight', 'cargo_price', 'recipient_company',
+            'cargo_weight', 'cargo_price', 'recipient_id',
             'recipient_zip', 'recipient_city', 'recipient_email',
             'recipient_area', 'recipient_address', 'recipient_address_comment',
             'recipient_phone', 'recipient_name', 'recipient_name2',

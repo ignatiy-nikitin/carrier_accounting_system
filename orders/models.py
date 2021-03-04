@@ -41,7 +41,7 @@ class Order(models.Model):
     cargo_weight = models.FloatField(null=True, verbose_name='Груз: масса', help_text='кг')
     cargo_price = models.CharField(max_length=128, blank=True, verbose_name='Стоимость груза', help_text='руб.')
     recipient_id = models.CharField(max_length=128, blank=True,
-                                    verbose_name='Идентификатор в базе клиента')
+                                    verbose_name='Идентификатор получателя в базе клиента')
     recipient_zip = models.CharField(max_length=128, blank=True, verbose_name='Адрес получателя: почтовый индекс')
     recipient_city = models.CharField(max_length=128, blank=True, verbose_name='Адрес получателя: город')
     recipient_email = models.EmailField(blank=True, verbose_name='Адрес получателя: электронная почта')
