@@ -1,0 +1,1 @@
+web: gunicorn carrier_accounting_system.wsgi
