@@ -13,9 +13,13 @@ class OrderViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsUserNotBlocked]
 
     def get_queryset(self):
+        if self.request.user.company.is_transport_company:
+            return Order.objects.all()
         return Order.objects.filter(company=self.request.user.company)
 
     def get_object(self):
+        if self.request.user.company.is_transport_company:
+            return get_object_or_404(Order, id=self.kwargs['pk'])
         return get_object_or_404(Order, company=self.request.user.company, id=self.kwargs['pk'])
 
     def get_serializer_class(self):
