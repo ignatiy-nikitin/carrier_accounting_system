@@ -14,6 +14,12 @@ INSTALLED_APPS = [
     'events',
     'shipments',
     'companies',
+    'corsheaders'
+]
+
+MIDDLEWARE_CLASSES = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 MIDDLEWARE = [
@@ -94,6 +100,5 @@ STATIC_URL = '/static/'
 
 try:
     from carrier_accounting_system.local_settings import *
-    INSTALLED_APPS += carrier_accounting_system.INSTALLED_APPS
 except ImportError:
     from carrier_accounting_system.prod_settings import *
