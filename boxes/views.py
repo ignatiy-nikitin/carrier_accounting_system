@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import viewsets
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
@@ -7,6 +9,11 @@ from boxes.serializers import BoxListRetrieveSerializer, BoxCreateSerializer, Bo
 from users.permissions import IsUserNotBlocked
 
 
+
+@method_decorator(name='list', decorator=swagger_auto_schema(
+    #operation_description="description from swagger_auto_schema via method_decorator",
+    responses={401: 'Authorization information is missing or invalid.'}
+))
 class BoxViewSet(viewsets.ModelViewSet):
     serializer_class = BoxListRetrieveSerializer
     permission_classes = [IsAuthenticated, IsUserNotBlocked]

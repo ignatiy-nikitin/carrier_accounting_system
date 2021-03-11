@@ -63,6 +63,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'Europe/Moscow'
 
@@ -93,5 +94,6 @@ STATIC_URL = '/static/'
 
 try:
     from carrier_accounting_system.local_settings import *
+    INSTALLED_APPS += carrier_accounting_system.INSTALLED_APPS
 except ImportError:
     from carrier_accounting_system.prod_settings import *
